@@ -1,0 +1,15 @@
+{
+  "background_color": "purple",
+  "description": "Tests samesite cookies",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "icon/test-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Samesite Tester",
+  "short_name": "Samesite",
+  "start_url": "/"
+}

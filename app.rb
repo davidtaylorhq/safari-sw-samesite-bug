@@ -8,8 +8,8 @@ get '/' do
 end
 
 get '/set-cookies' do
-  response.set_cookie(:none_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'None')
-  response.set_cookie(:lax_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'Lax')
-  response.set_cookie(:strict_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'Strict')
+  response.set_cookie(:none_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'None', secure: true)
+  response.set_cookie(:lax_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'Lax', secure: true)
+  response.set_cookie(:strict_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'Strict', secure: true)
   redirect to('/')
 end
