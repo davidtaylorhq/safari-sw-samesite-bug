@@ -1,11 +1,15 @@
 require 'sinatra'
 
 get '/' do
-  @cookie = request.cookies['time']
+  @none_cookie = request.cookies['none_cookie']
+  @lax_cookie = request.cookies['lax_cookie']
+  @strict_cookie = request.cookies['strict_cookie']
   erb :index
 end
 
 get '/set-cookies' do
-  response.set_cookie(:time, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'Lax')
+  response.set_cookie(:none_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'None')
+  response.set_cookie(:lax_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'Lax')
+  response.set_cookie(:strict_cookie, value: Time.now, expires: Time.now + 3600 * 24, httponly: true, same_site: 'Strict')
   redirect to('/')
 end

@@ -22,24 +22,48 @@
   </head>
   <body>
     <header>
-      <h1>Apple bug demonstration.</h1>
-      <aside>Service Worker + SameSite Cookies + Safari Tab recovery = broken site</aside>
+      <h1>Samesite PWA test.</h1>
+      <aside></aside>
     </header>
     <article>
-      <h2>Refresh the cookie, then kill Safari and re-open it.</h2>
-      <p>When Safari comes back, hit refresh the page <em>multiple times</em>.
-      The cookie is nil on every refresh.
-      Now click on the address bar, and hit go.</p>
-      <p>The cookie was there <strong>all the time</strong>.</p>
-      <div class="cookie">
-        <p>
-          Value of the received cookie:
+      <table>
+        <tr>
+          <th>Cookie Name</th>
+          <th>Samesite</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>my_samesite_none_cookie</td>
+          <td>None</td>
+          <td id="none-val"><%= @none_cookie || nil %></td>
+        </tr>
+        <tr>
+          <td>my_samesite_lax_cookie</td>
+          <td>Lax</td>
+          <td id="lax-val"><%= @lax_cookie || nil %></td>  
+        </tr>
+        <tr>
+          <td>my_samesite_strict_cookie</td>
+          <td>Strict</td>
+          <td id="strict-val"><%= @strict_cookie || nil %></td>
+        </tr>
+      </table>
+      <p>
+        <a href="/set-cookies">Set cookies</a>
+      </p>
+
+       <p>
+          <a href="https://gist.github.com/davidtaylorhq/5cea71c6fc3c70f9ef09f932cb69cd5d">Visit another site</a>
         </p>
+
         <p>
-          <%= @cookie || 'nil' %>
+          <a href="https://redirect-test.dtaylor.uk">302 Redirect back to here via different subdomain</a>
         </p>
-        <a href="/set-cookies">Refresh Cookie Time</a>
-      </div>
+
+        <p>
+          <a href="https://redirect-test.taylorhq.co.uk">302 Redirect back to here via different domain</a>
+        </p>
+
     </article>
     <footer>
       <hr />
