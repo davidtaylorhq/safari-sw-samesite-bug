@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Apple Bug</title>
+    <title>Samesite PWA Bug</title>
     <style type="text/css">
       body {
         margin: 40px auto;
@@ -18,56 +18,54 @@
       h3 {
         line-height: 1.2;
       }
+      footer{
+        font-size: 12px;
+      }
     </style>
     <link rel="manifest" href="manifest.webmanifest">
   </head>
   <body>
     <header>
       <h1>Samesite PWA test.</h1>
-      <aside></aside>
     </header>
     <article>
+      <p>
+      Demonstrates that samesite=lax cookies are lost during PWA auth flows.
+      <ol>
+        <li>Install this app to home screen on iOS</li>
+        <li>Set cookies, observe all present</li>
+        <li>Click link, observe missing lax cookie</li>
+      </ol>
+      </p>
       <table>
         <tr>
           <th>Cookie Name</th>
-          <th>Samesite</th>
           <th>Value</th>
         </tr>
         <tr>
-          <td>my_samesite_none_cookie</td>
-          <td>None</td>
-          <td id="none-val"><%= @none_cookie || nil %></td>
+          <td>none_cookie</td>
+          <td><%= @none_cookie || nil %></td>
         </tr>
         <tr>
-          <td>my_samesite_lax_cookie</td>
-          <td>Lax</td>
-          <td id="lax-val"><%= @lax_cookie || nil %></td>  
+          <td>lax_cookie</td>
+          <td><%= @lax_cookie || nil %></td>  
         </tr>
         <tr>
-          <td>my_samesite_strict_cookie</td>
-          <td>Strict</td>
-          <td id="strict-val"><%= @strict_cookie || nil %></td>
+          <td>strict_cookie</td>
+          <td><%= @strict_cookie || nil %></td>
         </tr>
       </table>
       <p>
         <a href="/set-cookies">Set cookies</a>
       </p>
 
-       <p>
-          <a href="https://gist.github.com/davidtaylorhq/5cea71c6fc3c70f9ef09f932cb69cd5d">Visit another site</a>
-        </p>
-
-        <p>
-          <a href="https://redirect-test.dtaylor.uk">302 Redirect back to here via different subdomain</a>
-        </p>
-
-        <p>
-          <a href="https://redirect-test.taylorhq.co.uk">302 Redirect back to here via different domain</a>
-        </p>
-
+      <p>
+        <a href="https://redirect-test.dtaylor.uk">302 redirect back to here</a>
+      </p>
     </article>
     <footer>
       <hr />
+      by <a href="https://github.com/davidtaylorhq/safari-sw-samesite-bug">@davidtaylorhq</a>, based on demonstration by <a href="https://github.com/xfalcox/safari-sw-samesite-bug">@xfalcox</a>
     </footer>
   </body>
   <script>
