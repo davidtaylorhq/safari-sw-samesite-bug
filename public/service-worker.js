@@ -30,9 +30,11 @@ workbox.routing.registerRoute(
 
 self.addEventListener('message', function (evt) {
   console.log('postMessage received', evt.data);
-  if(evt.data.enableCache){
+  if(evt.data.enableCache === true){
+    console.log("enabling cache")
     cacheEnabled = true;
-  }else{
+  }else if(evt.data.enableCache === false){
+    console.log("disabling cache")
     cacheEnabled = false;
   }
   evt.ports[0].postMessage({cacheEnabled: cacheEnabled});

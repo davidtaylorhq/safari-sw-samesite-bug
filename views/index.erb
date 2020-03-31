@@ -95,8 +95,14 @@
 
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
-        enableCache();
+        checkCache();
       });
+
+      function checkCache(){
+        var messageChannel = new MessageChannel();
+        messageChannel.port1.onmessage = receiveMessage;
+        navigator.serviceWorker.controller.postMessage({}, [messageChannel.port2])
+      }
 
       function disableCache(){
         var messageChannel = new MessageChannel();
