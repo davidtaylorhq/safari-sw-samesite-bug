@@ -30,12 +30,14 @@
     </header>
     <article>
       <p>
-      Demonstrates that samesite=lax cookies are lost during PWA auth flows.
+      Demonstrates that samesite=lax cookies are lost during auth flows when workbox caching is enabled.
       <ol>
-        <li>Install this app to home screen on iOS</li>
+        <li>Open this site in Safari</li>
         <li>Set cookies, observe all present</li>
-        <li>Click link, observe missing lax cookie</li>
+        <li>Ensure caching is enabled using buttons</li>
+        <li>Click redirect link, observe missing lax cookie</li>
       </ol>
+      When caching is disabled, the same flow does not result in the loss of lax cookies
       </p>
       <table>
         <tr>
@@ -68,7 +70,7 @@
       </p>
 
       <p>
-        Caching is <span id="cache-status"></span>
+        Caching is <span id="cache-status">...</span>
         <button onclick="enableCache()">Enable</button> <button onclick="disableCache()">Disable</button>
       </p>
 
@@ -95,7 +97,9 @@
 
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
-        checkCache();
+        window.setTimeout(function(){
+          checkCache();
+        }, 5000);
       });
 
       function checkCache(){
