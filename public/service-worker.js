@@ -9,7 +9,7 @@ if (workbox) {
 }
 
 workbox.routing.registerRoute(
-  new RegExp(".*?"), // everything
+  new RegExp("cachedroute"), 
   new workbox.strategies.NetworkFirst({
     cacheName: "offline",
     plugins: [
