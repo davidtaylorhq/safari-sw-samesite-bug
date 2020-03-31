@@ -8,8 +8,16 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
+workbox.setConfig({
+  debug: true
+});
+
+var cacheEnabled = true;
+
 workbox.routing.registerRoute(
-  new RegExp("cachedroute"), 
+  () => {
+    return cacheEnabled;
+  }, 
   new workbox.strategies.NetworkFirst({
     cacheName: "offline",
     plugins: [
@@ -19,3 +27,14 @@ workbox.routing.registerRoute(
     ]
   })
 );
+
+self.addEventListener('message', function (evt) {
+  console.log('postMessage received', evt.data);
+  if(evt.data.enableCache){
+    cacheEnabled = true;
+  }else{
+    cacheEnabled = false;
+  }
+  evt.ports[0].postMessage({cacheEnabled: cacheEnabled});
+})
+

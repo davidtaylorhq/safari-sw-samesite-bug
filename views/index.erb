@@ -66,6 +66,12 @@
       <p>
         <a href="https://gist.github.com/davidtaylorhq/5cea71c6fc3c70f9ef09f932cb69cd5d">Go offsite</a>
       </p>
+
+      <p>
+        Caching is <span id="cache-status"></span>
+        <button onclick="enableCache()">Enable</button> <button onclick="disableCache()">Disable</button>
+      </p>
+
     </article>
     <footer>
       <hr />
@@ -78,10 +84,31 @@
     if ('serviceWorker' in navigator) {
       // Use the window load event to keep the page load performant
 
+      function receiveMessage(event) {
+        console.log("Message received on client", event.data)
+        if(event.data.cacheEnabled){
+          document.getElementById("cache-status").textContent = "ENABLED"
+        }else{
+          document.getElementById("cache-status").textContent = "DISABLED"
+        };
+      };
+
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
+        enableCache();
       });
 
+      function disableCache(){
+        var messageChannel = new MessageChannel();
+        messageChannel.port1.onmessage = receiveMessage;
+        navigator.serviceWorker.controller.postMessage({enableCache: false}, [messageChannel.port2])
+      }
+
+      function enableCache(){
+        var messageChannel = new MessageChannel();
+        messageChannel.port1.onmessage = receiveMessage;
+        navigator.serviceWorker.controller.postMessage({enableCache: true}, [messageChannel.port2])
+      }
     }
   </script>
 </html>
